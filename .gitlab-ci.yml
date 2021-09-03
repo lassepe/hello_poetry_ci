@@ -1,0 +1,29 @@
+--- # Global --------------------------
+
+variables:
+  PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
+
+cache:
+  key: "${CI_JOB_NAME}"
+  paths:
+    - .cache/pip
+    - .venv
+
+stages:
+  - tests
+
+# Jobs templates ------------------
+
+tests: &test
+  stage: tests
+  image: python:3.9
+  # install dependencies
+  before_script:
+    - pip install poetry
+    - poetry --version
+    - poetry config virtualenvs.in-project true
+    - poetry install --no-interaction
+  script: poetry run pytest --cov=hello_poetry_ci --cov-report=xml
+  artifacts:
+    reports:
+      cobertura: coverage.xml
