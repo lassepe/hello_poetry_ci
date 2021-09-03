@@ -48,7 +48,7 @@ jobs:
       #----------------------------------------------
       - name: Run tests
         run: |
-          poetry run pytest --cov=hello_poetry_ci --cov-report=xml
+          poetry run pytest --cov-report=xml
       #----------------------------------------------
       # upload coverage
       #----------------------------------------------

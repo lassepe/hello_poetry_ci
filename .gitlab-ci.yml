@@ -26,7 +26,7 @@ tests: &test
     - poetry --version
     - poetry install --no-interaction
   script:
-    - poetry run pytest --cov=hello_poetry_ci --cov-report=xml
+    - poetry run pytest --cov-report=xml
   artifacts:
     reports:
       cobertura: coverage.xml
