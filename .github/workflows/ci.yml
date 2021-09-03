@@ -48,6 +48,13 @@ jobs:
       #----------------------------------------------
       - name: Run tests
         run: |
-          source .venv/bin/activate
-          pytest
-          coverage report
+          poetry run pytest --cov=hello_poetry_ci --cov-report=xml
+      #----------------------------------------------
+      # upload coverage
+      #----------------------------------------------
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: true
